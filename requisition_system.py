@@ -48,3 +48,63 @@ class Requisition:
             self.approval_reference = self.staff_id + str(self.requisition_id)[-3:]
 
         return self.status
+
+    def respond_to_requisition(self, response):
+        if self.status != "Pending":
+            print(f"Requisition {self.requisition_id} is already {self.status}")
+        elif self.total == 0:
+            print(f"Requisition {self.requisition_id} has no valid items")
+        elif response == "Approved":
+            self.status = "Approved"
+            self.approval_reference = self.staff_id + str(self.requisition_id)[-3:]
+        elif response == "Not approved":
+            self.status = "Not approved"
+        else:
+            print("Response must be 'Approved' or 'Not approved'")
+
+        return self.status
+
+    def show_requisition(self):
+        if self.total == int(self.total):
+            total_text = str(int(self.total))
+        else:
+            total_text = f"{self.total:.2f}"
+
+        print(f"Date: {self.date}")
+        print(f"Requisition ID: {self.requisition_id}")
+        print(f"Staff ID: {self.staff_id}")
+        print(f"Staff Name: {self.staff_name}")
+        print(f"Total: ${total_text}")
+        print(f"Status: {self.status}")
+        print(f"Approval Reference Number: {self.approval_reference}")
+        print("")
+
+    def display_requisitions(self):
+        print("Displaying the Requisitions")
+        print("")
+        for requisition in all_requisitions:
+            requisition.show_requisition()
+
+    def requisition_statistics(self):
+        submitted = len(all_requisitions)
+        approved = 0
+        pending = 0
+        not_approved = 0
+
+        for requisition in all_requisitions:
+            if requisition.status == "Approved":
+                approved = approved + 1
+            elif requisition.status == "Pending":
+                pending = pending + 1
+            elif requisition.status == "Not approved":
+                not_approved = not_approved + 1
+
+        print("Displaying the Requisition Statistics")
+        print("")
+        print(f"The total number of requisitions submitted: {submitted}")
+        print(f"The total number of approved requisitions: {approved}")
+        print(f"The total number of pending requisitions: {pending}")
+        print(f"The total number of not approved requisitions: {not_approved}")
+        print("")
+
+        return submitted, approved, pending, not_approved
