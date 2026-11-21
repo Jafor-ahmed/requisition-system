@@ -3,7 +3,7 @@ all_requisitions = []
 
 
 class Requisition:
-    def __init__(self, date, staff_id, staff_name):
+    def __init__(self, date="", staff_id="", staff_name=""):
         global requisition_counter
         requisition_counter = requisition_counter + 1
 
@@ -63,6 +63,48 @@ class Requisition:
             print("Response must be 'Approved' or 'Not approved'")
 
         return self.status
+
+    def enter_requisition(self):
+        print("Enter your information:")
+        self.date = input("Date: ")
+
+        self.staff_id = input("Staff ID: ")
+        while self.staff_id == "":
+            print("Staff ID cannot be empty")
+            self.staff_id = input("Staff ID: ")
+
+        self.staff_name = input("Staff Name: ")
+        while self.staff_name == "":
+            print("Staff Name cannot be empty")
+            self.staff_name = input("Staff Name: ")
+
+        print(f"Requisition ID: {self.requisition_id}")
+        print("")
+        print("Add items:")
+
+        item_names = []
+        item_prices = []
+
+        while True:
+            item_name = input("Item Name: ")
+
+            while True:
+                try:
+                    item_price = float(input("Item Price ($): "))
+                    break
+                except ValueError:
+                    print("Please type a number for the price")
+
+            item_names.append(item_name)
+            item_prices.append(item_price)
+
+            answer = input("Add another item (yes/no): ")
+            print("")
+            if answer.lower() != "yes":
+                break
+
+        self.add_requisition(item_names, item_prices)
+        self.approve_requisition()
 
     def show_requisition(self):
         if self.total == int(self.total):
