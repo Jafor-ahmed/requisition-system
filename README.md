@@ -13,9 +13,11 @@ The program can print all the requisitions and show how many are submitted, appr
 - `requisition_system.py` has the Requisition class.
 - `test_requisition.py` creates 6 requisitions to test the program.
 - `.gitignore` keeps Python's `__pycache__` folder out of the repository.
+- `main.py` lets us type a requisition in the terminal, then shows the manager step, the requisitions and the statistics.
 
 ## Methods
 
+- `enter_requisition` asks for the date, staff ID, staff name, item names and prices in the terminal, then works out the total and the status.
 - `__init__` sets up the date, staff ID, staff name, requisition ID, items, total, status and approval reference.
 - `add_requisition` takes the item names and prices, skips bad prices and returns the total.
 - `approve_requisition` approves totals under $500 and leaves the rest Pending.
@@ -26,7 +28,7 @@ The program can print all the requisitions and show how many are submitted, appr
 
 ## How to run
 
-Install Python, open the project folder in VS Code, open `test_requisition.py` and click Run.
+Install Python and open the project folder in VS Code. To type the requisitions, open `main.py` and click Run, then type the answers in the terminal. To run the six test requisitions in one window, we need to open `test_requisition.py` and click Run.
 
 ## Testing
 
